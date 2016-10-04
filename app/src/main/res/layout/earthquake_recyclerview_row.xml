@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#5CACEE"
+    android:padding="4dp" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rel1"
+        android:background="#FFFFFF" >
+
+        <TextView
+            android:id="@+id/txtRegion"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Large Text KLJDFSKLJF "
+            android:textAppearance="?android:attr/textAppearanceButton"
+            android:paddingLeft="5dp"
+            android:background="#FFEC8B" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rel2"
+            android:layout_below="@+id/txtRegion"
+            android:background="#FFFFFF" >
+
+            <TextView
+                android:id="@+id/txtLat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="5dp"
+                android:ellipsize="end"
+                android:text="Medium Text"
+                android:textAppearance="?android:attr/textAppearance"
+                android:textColor="#8A8A8A" />
+
+            <TextView
+                android:id="@+id/txtLog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/txtLat"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:ellipsize="end"
+                android:text="Small Text"
+                android:textAppearance="?android:attr/textAppearance"
+                android:textColor="#8A8A8A"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rel3"
+            android:layout_below="@+id/rel2"
+            android:background="#F6F6F6" >
+
+            <TextView
+                android:id="@+id/txtMagnitude"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="5dp"
+                android:ellipsize="end"
+                android:text="Medium Text"
+                android:textAppearance="?android:attr/textAppearance"
+                android:textColor="#8A8A8A" />
+
+            <TextView
+                android:id="@+id/txtDepth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/txtMagnitude"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:ellipsize="end"
+                android:text="Small Text"
+                android:textAppearance="?android:attr/textAppearance"
+                android:textColor="#8A8A8A"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>
