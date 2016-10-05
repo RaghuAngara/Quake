@@ -1,10 +1,15 @@
 package auspost.com.au.quake.activities;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
+import android.view.View;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -51,6 +56,28 @@ public class QuakeMainActivity extends AppCompatActivity {
         // specify an adapter (see also next example)
         mAdapter = new EarthQuakeAdapter(arrayEarthQuakeData);
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), mRecyclerView, new ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+
+                EarthQuakeData tempEarthQuakeData = arrayEarthQuakeData.get(position);
+
+                String tempLat = tempEarthQuakeData.getLat();
+                String tempLon = tempEarthQuakeData.getLon();
+                String tempRegion = tempEarthQuakeData.getRegion();
+
+                Intent launch_eq_maps = new Intent(QuakeMainActivity.this, QuakeMapsActivity.class);
+                launch_eq_maps.putExtra("latitude", tempLat);
+                launch_eq_maps.putExtra("longitude", tempLon);
+                launch_eq_maps.putExtra("region", tempRegion);
+                startActivity(launch_eq_maps);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
 
         fetchEarthQuakeDetails();
     }
@@ -86,5 +113,54 @@ public class QuakeMainActivity extends AppCompatActivity {
                 });
 
         quakeAndroidApp.getmVolleyRequestQueue().add(jsObjRequest);
+    }
+
+    public interface ClickListener {
+        void onClick(View view, int position);
+
+        void onLongClick(View view, int position);
+    }
+
+    public static class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
+
+        private GestureDetector gestureDetector;
+        private QuakeMainActivity.ClickListener clickListener;
+
+        public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final QuakeMainActivity.ClickListener clickListener) {
+            this.clickListener = clickListener;
+            gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+                @Override
+                public boolean onSingleTapUp(MotionEvent e) {
+                    return true;
+                }
+
+                @Override
+                public void onLongPress(MotionEvent e) {
+                    View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
+                    if (child != null && clickListener != null) {
+                        clickListener.onLongClick(child, recyclerView.getChildPosition(child));
+                    }
+                }
+            });
+        }
+
+        @Override
+        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+
+            View child = rv.findChildViewUnder(e.getX(), e.getY());
+            if (child != null && clickListener != null && gestureDetector.onTouchEvent(e)) {
+                clickListener.onClick(child, rv.getChildPosition(child));
+            }
+            return false;
+        }
+
+        @Override
+        public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+        }
+
+        @Override
+        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+        }
     }
 }

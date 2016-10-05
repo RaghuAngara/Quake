@@ -1,0 +1,12 @@
+<resources>
+    <!--
+    You can also add your credentials to an existing key, using this line:
+    0F:67:24:ED:DB:B4:1C:40:5F:11:B2:90:5B:54:A3:38:90:E0:BD:2A;auspost.com.au.quake.activities
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
+        AIzaSyCbzRaa05GqyQWFCmo3XpT07K-_iL6L71U
+    </string>
+</resources>

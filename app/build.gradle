@@ -35,4 +35,8 @@ dependencies {
 
     //RecycleView
     compile 'com.android.support:recyclerview-v7:24.2.1'
+
+    //GooglePlay Services
+    compile 'com.google.android.gms:play-services:9.6.1'
+
 }

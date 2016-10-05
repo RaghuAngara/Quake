@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Earth Quake</string>
+    <string name="title_activity_quake_maps">EarthQuakeMap</string>
 </resources>
