@@ -15,7 +15,6 @@ import auspost.com.au.quake.R;
 
 public class QuakeMapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
     private String lat;
     private String log;
     private String region;
@@ -40,19 +39,15 @@ public class QuakeMapsActivity extends FragmentActivity implements OnMapReadyCal
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
+     * This is where we can add markers or lines, add listeners or move the camera.
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
+        GoogleMap mMap = googleMap;
 
         LatLng hydLatLog = new LatLng(Double.valueOf(lat), Double.valueOf(log));
         mMap.addMarker(new MarkerOptions().position(hydLatLog).title(region)).showInfoWindow();
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(hydLatLog,5));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(hydLatLog, 5));
 
     }
 }

@@ -11,15 +11,13 @@ import auspost.com.au.quake.R;
 import auspost.com.au.quake.datamodels.EarthQuakeData;
 
 /**
- * Created by raghunandanangara on 4/10/2016.
+ * Adaptor for RecyclerView
  */
-
 public class EarthQuakeAdapter extends RecyclerView.Adapter<EarthQuakeViewHolder> {
 
-    private List<EarthQuakeData> earthQuakeDataList;
+    private final List<EarthQuakeData> earthQuakeDataList;
 
-    public EarthQuakeAdapter(List<EarthQuakeData> earthQuakeDataList)
-    {
+    public EarthQuakeAdapter(List<EarthQuakeData> earthQuakeDataList) {
         this.earthQuakeDataList = earthQuakeDataList;
     }
 
@@ -34,7 +32,7 @@ public class EarthQuakeAdapter extends RecyclerView.Adapter<EarthQuakeViewHolder
     @Override
     public void onBindViewHolder(EarthQuakeViewHolder holder, int position) {
 
-        EarthQuakeData eqData= earthQuakeDataList.get(position);
+        EarthQuakeData eqData = earthQuakeDataList.get(position);
 
         holder.tvRegion.setText(eqData.getRegion());
         holder.tvLat.setText(eqData.getLat());

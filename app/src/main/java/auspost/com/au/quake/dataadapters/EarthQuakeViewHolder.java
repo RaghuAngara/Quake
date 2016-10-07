@@ -7,19 +7,17 @@ import android.widget.TextView;
 import auspost.com.au.quake.R;
 
 /**
- * Created by raghunandanangara on 4/10/2016.
+ * Viewholder for each view within RecyclerView
  */
-
 public class EarthQuakeViewHolder extends RecyclerView.ViewHolder {
 
-    TextView tvRegion;
-    TextView tvLat;
-    TextView tvLog;
-    TextView tvMagnitude;
-    TextView tvDepth;
+    final TextView tvRegion;
+    final TextView tvLat;
+    final TextView tvLog;
+    final TextView tvMagnitude;
+    final TextView tvDepth;
 
-    EarthQuakeViewHolder(View itemView)
-    {
+    EarthQuakeViewHolder(View itemView) {
         super(itemView);
         tvRegion = (TextView) itemView.findViewById(R.id.txtRegion);
         tvLat = (TextView) itemView.findViewById(R.id.txtLat);

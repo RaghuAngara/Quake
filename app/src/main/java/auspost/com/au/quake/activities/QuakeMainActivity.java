@@ -32,28 +32,23 @@ import auspost.com.au.quake.datamodels.EarthQuakeData;
 public class QuakeMainActivity extends AppCompatActivity {
 
     private final static String url = "http://www.seismi.org/api/eqs/";
-    private ArrayList<EarthQuakeData> arrayEarthQuakeData = new ArrayList<EarthQuakeData>();
+    private final ArrayList<EarthQuakeData> arrayEarthQuakeData = new ArrayList<EarthQuakeData>();
 
-    private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quake_main);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
+        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
 
-        // use a linear layout manager
-        mLayoutManager = new GridLayoutManager(this, 2);
+        // use a grid layout manager
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        // specify an adapter (see also next example)
+        // specify an adapter
         mAdapter = new EarthQuakeAdapter(arrayEarthQuakeData);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), mRecyclerView, new ClickListener() {
@@ -82,7 +77,10 @@ public class QuakeMainActivity extends AppCompatActivity {
         fetchEarthQuakeDetails();
     }
 
-    private void fetchEarthQuakeDetails(){
+    /**
+     * This API fetches Restfull reponse using Volley Networking Library and parses it
+     */
+    private void fetchEarthQuakeDetails() {
 
         final AppClass quakeAndroidApp = (AppClass) getApplicationContext();
 
@@ -94,10 +92,10 @@ public class QuakeMainActivity extends AppCompatActivity {
                         Log.d("JSON Response: ", response.toString());
 
                         Gson gson = new GsonBuilder().serializeNulls().create();
-                        /** Convert JSONResponse to POJO Classes using GSON */
+                        //Convert JSONResponse to POJO Classes using GSON
                         EarthQuake DataTemp = gson.fromJson(response.toString(), EarthQuake.class);
 
-                        /** Copy all POJO arrays into ArrayList */
+                        //Copy all POJO arrays into ArrayList
                         Collections.addAll(arrayEarthQuakeData, DataTemp.earthquakes);
 
                         mAdapter.notifyDataSetChanged();
@@ -107,7 +105,7 @@ public class QuakeMainActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         if (error != null && error.getMessage() != null) {
-                            Log.i("Raghu", error.getMessage());
+                            Log.i("Error", error.getMessage());
                         }
                     }
                 });
@@ -115,16 +113,22 @@ public class QuakeMainActivity extends AppCompatActivity {
         quakeAndroidApp.getmVolleyRequestQueue().add(jsObjRequest);
     }
 
+    /**
+     * Interface used between RecyclerView and MainActivity
+     */
     public interface ClickListener {
         void onClick(View view, int position);
 
         void onLongClick(View view, int position);
     }
 
+    /**
+     * Recycler Touch Listener for individual items with in RecyclerView
+     */
     public static class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
 
-        private GestureDetector gestureDetector;
-        private QuakeMainActivity.ClickListener clickListener;
+        private final GestureDetector gestureDetector;
+        private final QuakeMainActivity.ClickListener clickListener;
 
         public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final QuakeMainActivity.ClickListener clickListener) {
             this.clickListener = clickListener;
